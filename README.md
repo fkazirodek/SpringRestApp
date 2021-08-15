@@ -4,7 +4,7 @@
 ## Install
 run `mvn install`
 
-##Configuration:
+## Configuration:
 `application.properties`:
 ```
 spring.sql.init.mode=always
@@ -13,10 +13,10 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
 ```
 
 ## Request
-###Get list of quotes
+### Get list of quotes
 `GET /api/quotes`
 
-###Response
+### Response
 ```
     HTTP/1.1 200 OK
     Date: Sun, 15 Aug 2021 12:57:54 GMT
@@ -41,11 +41,11 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
 ```
 
 ## Request
-###Save new quote with author
-####(if there is no author in DB, new author will be added)
+### Save new quote with author
+#### (if there is no author in DB, new author will be added)
 `POST /api/quotes`
 
-####request body
+#### request body
 ```
 {
     "id": null,
@@ -60,7 +60,7 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
  }
 ```
 
-###Response
+### Response
 ```
     HTTP/1.1 201 Created
     Date: Sun, 15 Aug 2021 12:57:54 GMT
@@ -83,10 +83,10 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
 ```
 
 ## Request
-###Update existing quote
+### Update existing quote
 `PUT /api/quotes`
 
-####request body
+#### request body
 ```
 {
     "id": 2,
@@ -101,7 +101,7 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
  }
 ```
 
-###Response
+### Response
 ```
     HTTP/1.1 200 OK
     Date: Sun, 15 Aug 2021 12:57:54 GMT
@@ -124,10 +124,10 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
 ```
 
 ## Request
-###Delete existing quote
+### Delete existing quote
 `PUT /api/quotes`
 
-####request body
+#### request body
 ```
 {
     "id": 2,
@@ -142,7 +142,7 @@ spring.jpa.hibernate.use-new-id-generator-mappings=false
  }
 ```
 
-###Response
+### Response
 ```
     HTTP/1.1 204 No Content
     Date: Sun, 15 Aug 2021 12:57:54 GMT
