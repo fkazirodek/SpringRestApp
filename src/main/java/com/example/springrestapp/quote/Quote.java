@@ -1,6 +1,6 @@
 package com.example.springrestapp.quote;
 
-import com.example.springrestapp.Author.Author;
+import com.example.springrestapp.author.Author;
 import com.example.springrestapp.generic.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

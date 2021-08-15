@@ -1,4 +1,4 @@
-package com.example.springrestapp.Author;
+package com.example.springrestapp.author;
 
 import com.example.springrestapp.generic.BaseEntity;
 import com.example.springrestapp.quote.Quote;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
@@ -21,6 +22,6 @@ public class Author extends BaseEntity {
 
     private String lastname;
 
-    @OneToMany(mappedBy = "author", orphanRemoval = true)
+    @OneToMany(mappedBy = "author", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Quote> quotes = new HashSet<>();
 }
