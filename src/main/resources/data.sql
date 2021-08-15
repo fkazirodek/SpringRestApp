@@ -19,12 +19,12 @@ CREATE TABLE IF NOT EXISTS quote
 );
 
 INSERT INTO author (id, version, firstname, lastname)
-VALUES (1, 1, 'Albert', 'Einstein');
+VALUES (1, 0, 'Albert', 'Einstein');
 
 INSERT
 INTO quote (id, version, content, author_id)
 VALUES (1,
-        1,
+        0,
         'Wyobraźnia  jest ważniejsza od wiedzy. Wiedza jest ograniczona, a wyobraźnia otacza cały świat.',
         SELECT id FROM author where firstname = 'Albert' AND lastname = 'Einstein'
         );

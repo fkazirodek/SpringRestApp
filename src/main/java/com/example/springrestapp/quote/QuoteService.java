@@ -60,11 +60,14 @@ public class QuoteService extends GenericRestService<Quote, QuoteDTO> {
 
     private void updateAuthor(Quote entity, QuoteDTO dto) {
         if (dto.getAuthor() != null) {
+            Long id = dto.getAuthor().getId() == null ? -1 : dto.getAuthor().getId();
             Author author = authorRepository
-                    .findById(dto.getAuthor().getId())
+                    .findById(id)
                     .orElseGet(Author::new);
             author.setFirstname(dto.getAuthor().getFirstname());
             author.setLastname(dto.getAuthor().getLastname());
+            authorRepository.save(author);
+
             author.getQuotes().add(entity);
             entity.setAuthor(author);
         }

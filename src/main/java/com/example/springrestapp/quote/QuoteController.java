@@ -34,9 +34,9 @@ class QuoteController {
     }
 
     @DeleteMapping()
-    ResponseEntity.BodyBuilder delete(@RequestBody QuoteDTO quoteDTO) {
+    ResponseEntity<Void> delete(@RequestBody QuoteDTO quoteDTO) {
         quoteService.delete(quoteDTO);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 }
 
