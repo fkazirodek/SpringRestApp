@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         classes = SpringRestAppApplication.class
 )
 @AutoConfigureMockMvc
-@Transactional
 public class QuoteIntegrationTest {
 
     @Autowired
@@ -41,9 +40,7 @@ public class QuoteIntegrationTest {
 
     @Test
     public void shouldGetAllQuotesWithStatusOK() throws Exception {
-        mvc.perform(get("/api/quotes")
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
+        mvc.perform(get("/api/quotes").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(quoteRepository.findAll().size())));
     }
