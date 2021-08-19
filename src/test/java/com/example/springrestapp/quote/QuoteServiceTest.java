@@ -8,10 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.ReflectionUtils;
 
 import javax.persistence.EntityExistsException;
-import java.lang.reflect.Field;
+import javax.persistence.OptimisticLockException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -72,7 +71,7 @@ public class QuoteServiceTest {
     public void shouldUpdateQuote() {
         Quote updatedQuote = createQuote();
         updatedQuote.setContent("UPDATED content");
-        setIdByReflection(updatedQuote);
+        updatedQuote.setId(1L);
 
         QuoteDTO quote = quoteService.update(QuoteDTO.convertToDTO(updatedQuote));
 
@@ -84,19 +83,26 @@ public class QuoteServiceTest {
     @Test
     public void shouldThrowExceptionWhenQuoteExists() {
         Quote quote = createQuote();
-        setIdByReflection(quote);
+        quote.setId(1L);
 
         when(quoteRepository.findById(anyLong())).thenReturn(Optional.of(quote));
 
         Assertions.assertThrows(EntityExistsException.class, () -> quoteService.save(QuoteDTO.convertToDTO(quote)));
     }
 
-    private void setIdByReflection(Quote updatedQuote) {
-        Field id = ReflectionUtils.findField(Quote.class, "id");
-        if (id != null) {
-            id.setAccessible(true);
-            ReflectionUtils.setField(id, updatedQuote, 1L);
-        }
+    @Test
+    public void shouldThrowOptimisticLockExceptionWhenQuoteHasDifferentVersion() {
+        Quote quote = createQuote();
+        quote.setId(1L);
+        quote.setVersion(1L);
+
+        when(quoteRepository.getById(anyLong())).thenReturn(quote);
+
+        Quote updatedQuote = createQuote();
+        updatedQuote.setId(1L);
+        updatedQuote.setVersion(2L);
+
+        Assertions.assertThrows(OptimisticLockException.class, () -> quoteService.update(QuoteDTO.convertToDTO(updatedQuote)));
     }
 
     private Quote createQuote() {
